@@ -1,64 +1,56 @@
-<form class="ui form">
+<%= form_for @document, url: {action: "create"}, html: {class: "ui form"} do |f| %>
   <!-- text area -->
   <div class="field">
     <label>Paste your text here:</label>
     <div autofocus name="" id="editor"></div>
-    <input type="hidden" name="content">
+    <%= f.hidden_field(:content) %>
   </div>
 
-  <div class="divider divider30"></div>
+  <%= content_tag :div, nil, class: ["divider", "divider30"] %>
 
   <!-- attributes -->
   <div class="ui grid">
     <!-- title -->
     <div class="four wide computer eight wide tablet sixteen wide mobile column">
-      <label>Title:</label>
-      <input placeholder="" type="text" name="title">
+      <%= f.label :title %>
+      <%= f.text_field(:title) %>
     </div>
 
     <div class="four wide computer eight wide tablet sixteen wide mobile column">
-      <label>Exprires:</label>
+      <%= f.label :expire %>
       <div class="ui">
         <div class="ui fluid normal selection dropdown dropdown-expire">
-          <input type="hidden" name="expire"value="0">
+          <%= f.hidden_field(:expire, value: 0) %>
           <i class="dropdown icon"></i>
           <div class="default text">After reading</div>
-          <div class="menu">
-            <div class="item" data-value="0">After reading</div>
-            <div class="item" data-value="1m">1m</div>
-            <div class="item" data-value="5m">5m</div>
-          </div>
+          <%= expire_dropdown %>
         </div>
       </div>
     </div>
 
     <!-- syntax -->
     <div class="four wide computer eight wide tablet sixteen wide mobile column">
-      <label>Syntax:</label>
+      <%= f.label :syntax %>
       <div class="ui">
         <div class="ui fluid search normal selection dropdown dropdown-syntax">
-          <input type="hidden" name="syntax" value="plain_text">
+          <%= f.hidden_field(:syntax, value: 'plain_text') %>
           <i class="dropdown icon"></i>
           <div class="default text">Plain text</div>
-          <div class="menu">
-            <div class="item" data-value="plain_text">Plain text</div>
-            <div class="item" data-value="html">HTML</div>
-            <div class="item" data-value="python">Python</div>
-            <div class="item" data-value="ruby">Ruby</div>
-            <div class="item" data-value="javascript">Javascript</div>
-          </div>
+          <%= syntax_dropdown %>
         </div>
       </div>
     </div>
   </div> <!-- end of attribute section -->
 
-  <div class="divider divider30"></div>
+  <%= content_tag :div, nil, class: ["divider", "divider30"] %>
+  <%= content_tag :div, nil, class: ["ui", "error", "message"] %>
 
-  <div class="ui error message"></div>
+  <%= button_tag(type: 'submit', class: 'ui button fluid teal') do %>
+    Submit <small>(Alt + Enter)</small>
+  <% end %>
 
-  <button class="ui button fluid teal" type="submit">Submit <small>(Alt + Enter)</small></button>
-
-</form> <!--  end of form -->
+<% end %>
+ <!--  end of form -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
@@ -72,7 +64,7 @@ editor.focus();
 editor.getSession().on("change", function(e){
   editorVal = editor.getValue();
   try {
-    $('input[name=content]').val(editorVal);
+    $('#document_content').val(editorVal);
   } catch(e){
     // Do smt if error
   }
@@ -93,7 +85,7 @@ $('.dropdown-expire').dropdown();
 // Define from validation rule
 var validationRules = {
   content: {
-    identifier  : 'content',
+    identifier  : 'document[content]',
     rules: [
       {
         type   : 'empty',
@@ -109,7 +101,34 @@ $('.ui.form').form({
   fields: validationRules,
   // When validation is successful
   onSuccess: function(event, fields){
-    alert("Dang test");
+    event.preventDefault();
+    var myForm = $('.ui.form');
+    var sbmButton = $('.ui.form .button');
+
+    sbmButton.addClass('loading disabled');
+
+    $.ajax({
+      type: myForm.attr('method'),
+      url: myForm.attr('action'),
+      data: fields,
+      statusCode: {
+        201: function (data) {
+          console.log(data);
+        },
+        400: function (data) {
+        },
+        500: function (data) {
+        }
+      }
+    }).fail(function( data ) {
+      // Do after failure
+      console.log(data);
+      alert("Error!!! Try again later");
+    }).always(function( data ) {
+      // Always execute after ajax call done
+      sbmButton.removeClass('loading disabled');
+    });
+
     return false
   }
 });

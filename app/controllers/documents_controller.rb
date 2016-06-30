@@ -25,16 +25,17 @@ class DocumentsController < ApplicationController
   # POST /documents.json
   def create
     @document = Document.new(document_params)
-
-    respond_to do |format|
-      if @document.save
-        format.html { redirect_to @document, notice: 'Document was successfully created.' }
-        format.json { render :show, status: :created, location: @document }
-      else
-        format.html { render :new }
-        format.json { render json: @document.errors, status: :unprocessable_entity }
-      end
-    end
+    sleep 2
+    render text: true, status: 201
+    # respond_to do |format|
+    #   if @document.save
+    #     format.html { redirect_to @document, notice: 'Document was successfully created.' }
+    #     format.json { render :show, status: :created, location: @document }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @document.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /documents/1
@@ -69,6 +70,7 @@ class DocumentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def document_params
+      puts params
       # params.fetch(:document, {})
     end
 end

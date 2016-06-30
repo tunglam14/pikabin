@@ -1,5 +1,116 @@
-<h1>New Document</h1>
+<form class="ui form">
+  <!-- text area -->
+  <div class="field">
+    <label>Paste your text here:</label>
+    <div autofocus name="" id="editor"></div>
+    <input type="hidden" name="content">
+  </div>
 
-<%= render 'form' %>
+  <div class="divider divider30"></div>
 
-<%= link_to 'Back', documents_path %>
+  <!-- attributes -->
+  <div class="ui grid">
+    <!-- title -->
+    <div class="four wide computer eight wide tablet sixteen wide mobile column">
+      <label>Title:</label>
+      <input placeholder="" type="text" name="title">
+    </div>
+
+    <div class="four wide computer eight wide tablet sixteen wide mobile column">
+      <label>Exprires:</label>
+      <div class="ui">
+        <div class="ui fluid normal selection dropdown dropdown-expire">
+          <input type="hidden" name="expire"value="0">
+          <i class="dropdown icon"></i>
+          <div class="default text">After reading</div>
+          <div class="menu">
+            <div class="item" data-value="0">After reading</div>
+            <div class="item" data-value="1m">1m</div>
+            <div class="item" data-value="5m">5m</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- syntax -->
+    <div class="four wide computer eight wide tablet sixteen wide mobile column">
+      <label>Syntax:</label>
+      <div class="ui">
+        <div class="ui fluid search normal selection dropdown dropdown-syntax">
+          <input type="hidden" name="syntax" value="plain_text">
+          <i class="dropdown icon"></i>
+          <div class="default text">Plain text</div>
+          <div class="menu">
+            <div class="item" data-value="plain_text">Plain text</div>
+            <div class="item" data-value="html">HTML</div>
+            <div class="item" data-value="python">Python</div>
+            <div class="item" data-value="ruby">Ruby</div>
+            <div class="item" data-value="javascript">Javascript</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!-- end of attribute section -->
+
+  <div class="divider divider30"></div>
+
+  <div class="ui error message"></div>
+
+  <button class="ui button fluid teal" type="submit">Submit <small>(Alt + Enter)</small></button>
+
+</form> <!--  end of form -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+// Init editor
+var editor = ace.edit("editor");
+editor.setTheme("ace/theme/github");
+editor.getSession().setMode("ace/mode/github");
+editor.focus();
+
+// Assign value in editor to form input
+editor.getSession().on("change", function(e){
+  editorVal = editor.getValue();
+  try {
+    $('input[name=content]').val(editorVal);
+  } catch(e){
+    // Do smt if error
+  }
+})
+
+// Set syntax
+$('.dropdown-syntax').dropdown({
+  action: 'activate',
+  onChange: function(value, text, $choice) {
+    editor.getSession().setMode("ace/mode/" + value);
+    return;
+  }
+});
+
+// Set expire
+$('.dropdown-expire').dropdown();
+
+// Define from validation rule
+var validationRules = {
+  content: {
+    identifier  : 'content',
+    rules: [
+      {
+        type   : 'empty',
+        prompt : 'Forgot your text'
+      }
+    ]
+  }
+}
+
+// Form handle
+$('.ui.form').form({
+  on: 'submit',
+  fields: validationRules,
+  // When validation is successful
+  onSuccess: function(event, fields){
+    alert("Dang test");
+    return false
+  }
+});
+</script>

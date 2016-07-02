@@ -3,8 +3,8 @@
 <head>
   <title>PikaBin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
 
   <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.1/semantic.min.css" %>
   <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.1/semantic.min.js" %>
@@ -16,7 +16,7 @@
     <div class="ten wide computer twelve wide column fourteen wide mobile column centered container">
 
       <div class="ui secondary pointing menu">
-        <a class="active item">
+        <a class="active item" href="/">
           <i class="large icons">
             <i class="code icon"></i>
             <i class="inverted corner add icon"></i>

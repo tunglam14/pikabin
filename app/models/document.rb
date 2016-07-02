@@ -1,2 +1,63 @@
 class Document < ActiveRecord::Base
+  before_save :encrypt_content
+  before_save :set_friendly_id
+  before_save :set_expired_at
+
+  attr_accessor :password
+
+  def content_decrypted
+    # TODO: use an other decryptor
+    content_decrypted = Base64.decode64(self.content)
+    return content_decrypted.gsub(@password, '')
+  end
+
+  private
+  def encrypt_content
+    # TODO: use an other encryptor
+    @password = SecureRandom.base64
+    self.content = Base64.encode64(self.content + @password)
+  end
+
+  def set_friendly_id
+    self.friendly_id = _gen_unique_friendly_id
+  end
+
+  def set_expired_at
+    self.expired_at = _get_datetime_from_duration_string
+  end
+
+  def _gen_unique_friendly_id
+    all_doc = Document.all.as_json
+    begin
+      uniq_id = SecureRandom.uuid[0..4]
+      is_id_exist = ((all_doc.select {|v| v['friendly_id'] == uniq_id}) != [])
+    end while is_id_exist
+
+    return uniq_id
+  end
+
+  # '0'  => 'After reading',
+  # '-1'  => 'No expire',
+  # '1m' => '1 min',
+  # '5m' => '5 min',
+  # '1h' => '1 hour',
+  # '1d' => '1 day'
+  def _get_datetime_from_duration_string
+    case self.expired_at
+    when 0
+      return 0
+    when '1m'
+      return Time.now + 1.minutes
+    when '-1'
+      return -1
+    when '5m'
+      return Time.now + 5.minutes
+    when '1h'
+      return Time.now + 1.hours
+    when '1d'
+      return Time.now + 1.days
+    else
+      return nil
+    end
+  end
 end

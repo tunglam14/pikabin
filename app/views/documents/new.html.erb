@@ -1,3 +1,5 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.12/clipboard.min.js"></script>
+
 <%= form_for @document, url: {action: "create"}, html: {class: "ui form"} do |f| %>
   <!-- text area -->
   <div class="field">
@@ -17,13 +19,13 @@
     </div>
 
     <div class="four wide computer eight wide tablet sixteen wide mobile column">
-      <%= f.label :expire %>
+      <%= f.label :expired_at %>
       <div class="ui">
-        <div class="ui fluid normal selection dropdown dropdown-expire">
-          <%= f.hidden_field(:expire, value: 0) %>
+        <div class="ui fluid normal selection dropdown dropdown-expired_at">
+          <%= f.hidden_field(:expired_at, value: '0') %>
           <i class="dropdown icon"></i>
           <div class="default text">After reading</div>
-          <%= expire_dropdown %>
+          <%= expired_at_dropdown %>
         </div>
       </div>
     </div>
@@ -33,7 +35,7 @@
       <%= f.label :syntax %>
       <div class="ui">
         <div class="ui fluid search normal selection dropdown dropdown-syntax">
-          <%= f.hidden_field(:syntax, value: 'plain_text') %>
+          <%= f.hidden_field(:syntax, value: 'plain') %>
           <i class="dropdown icon"></i>
           <div class="default text">Plain text</div>
           <%= syntax_dropdown %>
@@ -46,11 +48,24 @@
   <%= content_tag :div, nil, class: ["ui", "error", "message"] %>
 
   <%= button_tag(type: 'submit', class: 'ui button fluid teal') do %>
-    Submit <small>(Alt + Enter)</small>
+    Submit
   <% end %>
 
 <% end %>
- <!--  end of form -->
+<!--  end of form -->
+
+<div class="ui link_placeholder" style="display: none">
+  <center>
+    <h1>Your Link:</h1>
+    <div class="ui action input">
+      <input type="text" class="shared_link" value="" size="60">
+      <button class="ui teal right labeled icon button button-copy" data-clipboard-target=".shared_link">
+        <i class="copy icon"></i>
+        Ctrl/⌘ + V
+      </button>
+    </div>
+  </center>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
@@ -59,6 +74,8 @@ var editor = ace.edit("editor");
 editor.setTheme("ace/theme/github");
 editor.getSession().setMode("ace/mode/github");
 editor.focus();
+
+new Clipboard('.button-copy');
 
 // Assign value in editor to form input
 editor.getSession().on("change", function(e){
@@ -79,8 +96,8 @@ $('.dropdown-syntax').dropdown({
   }
 });
 
-// Set expire
-$('.dropdown-expire').dropdown();
+// Set expired_at
+$('.dropdown-expired_at').dropdown();
 
 // Define from validation rule
 var validationRules = {
@@ -111,19 +128,25 @@ $('.ui.form').form({
       type: myForm.attr('method'),
       url: myForm.attr('action'),
       data: fields,
+      dataType: 'json',
       statusCode: {
         201: function (data) {
-          console.log(data);
+          console.log(data)
+          myForm.hide();
+          $('.link_placeholder input').val(window.location.href + data.random_key);
+          $('.link_placeholder').show();
+          $('.link_placeholder input').select();
         },
         400: function (data) {
+          alert(data.message);
         },
         500: function (data) {
+          alert('Server Error.');
         }
       }
     }).fail(function( data ) {
       // Do after failure
       console.log(data);
-      alert("Error!!! Try again later");
     }).always(function( data ) {
       // Always execute after ajax call done
       sbmButton.removeClass('loading disabled');

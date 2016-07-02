@@ -1,5 +1,5 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushRuby.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrush<%= load_syntax(@document) %>.min.js"></script>
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet" type="text/css" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet" type="text/css" />
@@ -11,27 +11,17 @@ h1 {
 }
 </style>
 
-<button class="ui red basic right floated button">
+<button class="ui red basic right floated button" onclick="alert('in development');">
   <i class="ui remove icon"></i>
   Delete now
 </button>
 
-<h1 class="">User class</h1>
-<p>This document will expire in <strong data-tooltip="Wed, 13:12 29/07/2016"><u>29 days</u></strong>.</p>
+<h1 class=""><%= print_document_title(@document) %></h1>
+<p><%= print_expired_at(@document) %></p>
 <br>
 
-<pre class="brush: rb">
-def update
-  respond_to do |format|
-    if @document.update(document_params)
-      format.html { redirect_to @document, notice: 'Document was successfully updated.' }
-      format.json { render :show, status: :ok, location: @document }
-    else
-      format.html { render :edit }
-      format.json { render json: @document.errors, status: :unprocessable_entity }
-    end
-  end
-end
+<pre class="brush: <%= @document.syntax.downcase %>">
+<%= @document.content_decrypted %>
 </pre>
 
 <div class="divider divider60"></div>

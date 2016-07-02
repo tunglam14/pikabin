@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20160622170818) do
     t.string   "title"
     t.text     "content"
     t.string   "syntax"
-    t.datetime "expire"
+    t.string   "expired_at"
     t.string   "friendly_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false

@@ -4,7 +4,7 @@ class CreateDocuments < ActiveRecord::Migration
       t.string :title
       t.text :content
       t.string :syntax
-      t.datetime :expire
+      t.string :expired_at
       t.string :friendly_id
       t.timestamps null: false
     end

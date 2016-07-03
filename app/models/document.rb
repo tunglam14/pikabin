@@ -11,6 +11,39 @@ class Document < ActiveRecord::Base
     return content_decrypted.gsub(@password, '')
   end
 
+  def is_expired?
+    expire = self.expired_at
+
+    case expire
+    when nil, 0, "0"
+      # One time link
+      self.expired_at = Time.now
+      self.save
+      return false
+    when -1, "-1"
+      # immortal link
+      return false
+    else
+      # check period
+      expire = expire.to_datetime rescue false
+
+      if not expire
+        Rails.logger.error "Parse document expire fail"
+        return true
+      end
+
+      if Time.now >= expire
+        return false
+      end
+
+      if Time.now < expire
+        return true
+      end
+
+      return true
+    end
+  end
+
   private
   def encrypt_content
     # TODO: use an other encryptor
@@ -44,7 +77,7 @@ class Document < ActiveRecord::Base
   # '1d' => '1 day'
   def _get_datetime_from_duration_string
     case self.expired_at
-    when 0
+    when 0, '0'
       return 0
     when '1m'
       return Time.now + 1.minutes
@@ -57,7 +90,7 @@ class Document < ActiveRecord::Base
     when '1d'
       return Time.now + 1.days
     else
-      return nil
+      return 0
     end
   end
 end

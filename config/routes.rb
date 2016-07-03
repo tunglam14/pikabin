@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get '/404' => 'errors#not_found'
+  get '/404' => 'errors#not_found', as: 'not_found'
 
   root 'documents#new'
 

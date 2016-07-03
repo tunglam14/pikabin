@@ -17,12 +17,13 @@ class Document < ActiveRecord::Base
     case expire
     when nil, 0, "0"
       # One time link
-      self.expired_at = Time.now
-      self.save
+      self.update_column 'expired_at', Time.now
       return false
+
     when -1, "-1"
       # immortal link
       return false
+
     else
       # check period
       expire = expire.to_datetime rescue false

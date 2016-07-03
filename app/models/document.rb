@@ -32,11 +32,11 @@ class Document < ActiveRecord::Base
         return true
       end
 
-      if Time.now >= expire
+      if Time.now <= expire
         return false
       end
 
-      if Time.now < expire
+      if Time.now > expire
         return true
       end
 

@@ -12,6 +12,7 @@ capybara-*.html
 .rspec
 /tmp
 /public/system
+/public/assets
 /coverage/
 /spec/tmp
 **.orig

@@ -6,11 +6,13 @@
   <meta name="author" content="PikaBin">
   <meta name="description" content="PikaBin is a website where you can store text online for a set period of time">
 
-  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js" %>
+  <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/jquery-ujs/1.2.1/rails.min.js" %>
+  <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.1/semantic.min.js" %>
   <%= javascript_include_tag 'application' %>
 
   <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.1/semantic.min.css" %>
-  <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.1/semantic.min.js" %>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
 
   <%= csrf_meta_tags %>
 </head>

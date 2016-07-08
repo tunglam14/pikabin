@@ -1,4 +1,4 @@
 * Change encrypt mechanism
-* Show `coppied` when click to coppy button
+* ~~Show `copied` when click to copy button~~
 * Submit button for mobile
 * Fix show notice in one-time-document

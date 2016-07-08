@@ -154,4 +154,10 @@ $('.ui.form').form({
     return false
   }
 });
+
+// Set button to copied when click
+$('.button-copy').click(function(event){
+  event.preventDefault();
+  $(this).html('<i class="copy icon"></i> Copied');
+});
 </script>

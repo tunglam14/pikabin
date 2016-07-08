@@ -5,6 +5,22 @@ class Document < ActiveRecord::Base
 
   attr_accessor :password
 
+  def self.find_and_validate_by_friendly_id(friendly_id)
+    document = self.find_by(friendly_id: friendly_id)
+
+    # not found
+    if document.nil?
+      return nil
+    end
+
+    # one time document or expired
+    if document.is_expired?
+      return process_expired(document)
+    end
+
+    return document
+  end
+
   def content_decrypted
     # TODO: use an other decryptor
     content_decrypted = Base64.decode64(self.content)
@@ -15,12 +31,11 @@ class Document < ActiveRecord::Base
     expire = self.expired_at
 
     case expire
-    when nil, 0, "0"
+    when "0", nil, 0
       # One time link
-      self.update_column 'expired_at', Time.now
-      return false
+      return true
 
-    when -1, "-1"
+    when "-1", -1
       # immortal link
       return false
 
@@ -93,5 +108,15 @@ class Document < ActiveRecord::Base
     else
       return 0
     end
+  end
+
+  # Cloning object and deteling expired doc
+  def self.process_expired(document)
+    # document_clone is not persistence data
+    document_clone = document.clone
+    Thread.new {
+      document.destroy rescue Rails.logger.info "Delete document fail"
+    }
+    return document_clone
   end
 end

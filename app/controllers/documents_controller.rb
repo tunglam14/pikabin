@@ -1,6 +1,5 @@
 class DocumentsController < ApplicationController
-  # before_action :set_document, only: [:show, :destroy]
-  before_action :validate_document, only: [:show, :destroy]
+  before_action :set_document, only: [:show, :destroy]
 
   # GET /documents/1
   # GET /documents/1.json
@@ -32,11 +31,15 @@ class DocumentsController < ApplicationController
   private
     def set_document
       token = parse_token
-      @document = Document.find_by(friendly_id: token[:friendly_id])
+      @document = Document.find_and_validate_by_friendly_id(token[:friendly_id])
 
-      if not @document.nil?
-        @document.password = token[:password]
+      if @document.nil?
+        redirect_to not_found_url
+        return
       end
+
+      # Set password to decrypt
+      @document.password = token[:password]
     end
 
     def document_params
@@ -57,19 +60,5 @@ class DocumentsController < ApplicationController
         friendly_id: friendly_id,
         password: password
       }
-    end
-
-    # Check document
-    def validate_document
-      # binding.pry
-      set_document
-
-      if @document.nil? or @document.is_expired?
-        Thread.new {
-          @document.destroy rescue Rails.logger.info "Delete document fail"
-        }
-        redirect_to not_found_url
-        return
-      end
     end
 end

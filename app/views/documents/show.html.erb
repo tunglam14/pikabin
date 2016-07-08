@@ -11,10 +11,12 @@ h1 {
 }
 </style>
 
+<% if @document.expired_at.to_i != 0 %>
 <button class="ui red basic right floated button" onclick="alert('in development');">
   <i class="ui remove icon"></i>
   Delete now
 </button>
+<% end %>
 
 <h1 class=""><%= print_document_title(@document) %></h1>
 <p><%= print_expired_at(@document) %></p>

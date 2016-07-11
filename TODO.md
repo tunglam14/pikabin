@@ -1,4 +1,4 @@
-* Change encrypt mechanism
+* ~~Change encrypt mechanism~~
 * ~~Show `copied` when click to copy button~~
 * Submit button for mobile
 * ~~Fix show notice in one-time-document~~

@@ -22,9 +22,8 @@ class Document < ActiveRecord::Base
   end
 
   def content_decrypted
-    # TODO: use an other decryptor
-    content_decrypted = Base64.decode64(self.content)
-    return content_decrypted.gsub(@password, '')
+    encryption =Cryptor.new(encrypted_content: self.content, password: @password)
+    return encryption.decrypt()
   end
 
   def is_expired?
@@ -62,9 +61,10 @@ class Document < ActiveRecord::Base
 
   private
   def encrypt_content
-    # TODO: use an other encryptor
-    @password = SecureRandom.base64
-    self.content = Base64.encode64(self.content + @password)
+    encryption =Cryptor.new(content: self.content)
+    # This is random password from Cryptor
+    @password = encryption.password
+    self.content = encryption.encrypt()
   end
 
   def set_friendly_id

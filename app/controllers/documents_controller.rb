@@ -1,6 +1,12 @@
 class DocumentsController < ApplicationController
   before_action :set_document, only: [:show, :destroy]
 
+  rescue_from OpenSSL::Cipher::CipherError do |exception|
+    message = "Decrypt fail #{params}"
+    Rails.logger.error message
+    redirect_to not_found_url
+  end
+
   # GET /documents/1
   # GET /documents/1.json
   def show

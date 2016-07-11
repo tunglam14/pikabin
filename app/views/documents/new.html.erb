@@ -132,7 +132,7 @@ $('.ui.form').form({
         201: function (data) {
           console.log(data)
           myForm.hide();
-          $('.link_placeholder input').val(window.location.href + data.random_key);
+          $('.link_placeholder input').val(window.location.href + data.token);
           $('.link_placeholder').show();
           $('.link_placeholder input').select();
         },

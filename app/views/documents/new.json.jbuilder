@@ -1,1 +1,1 @@
-json.extract! @res, :random_key, :message
+json.extract! @res, :token, :message

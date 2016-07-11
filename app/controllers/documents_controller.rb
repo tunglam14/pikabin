@@ -20,13 +20,13 @@ class DocumentsController < ApplicationController
     @document = Document.new(document_params)
 
     @res = {
-      random_key: '',
+      token: '',
       message: ''
     }
 
     respond_to do |format|
       if @document.save
-        @res[:random_key] = TokenService.build(friendly_id: @document.friendly_id, password: @document.password)
+        @res[:token] = TokenService.build(friendly_id: @document.friendly_id, password: @document.password)
         format.json { render :new, status: 201 }
       else
         format.json { render :new, status: 400 }

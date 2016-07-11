@@ -85,28 +85,14 @@ class Document < ActiveRecord::Base
     return uniq_id
   end
 
-  # '0'  => 'After reading',
-  # '-1'  => 'No expire',
-  # '1m' => '1 min',
-  # '5m' => '5 min',
-  # '1h' => '1 hour',
-  # '1d' => '1 day'
   def _get_datetime_from_duration_string
     case self.expired_at
     when 0, '0'
       return 0
-    when '1m'
-      return Time.now + 1.minutes
     when '-1'
       return -1
-    when '5m'
-      return Time.now + 5.minutes
-    when '1h'
-      return Time.now + 1.hours
-    when '1d'
-      return Time.now + 1.days
     else
-      return 0
+      return Time.now + self.expired_at.to_i.seconds
     end
   end
 

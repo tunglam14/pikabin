@@ -9,8 +9,8 @@ module DocumentsHelper
 
   def expired_at_dropdown
     content_tag :div, class: "menu" do
-      EXPIRE.each do |short, long|
-        concat(content_tag :div, long, class: "item", :'data-value' => short)
+      EXPIRE.each do |short, duration|
+        concat(content_tag :div, duration['text'], class: "item", :'data-value' =>  duration['value'])
       end
     end
   end

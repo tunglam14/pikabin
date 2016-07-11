@@ -10,11 +10,34 @@ SYNTAX = {
   'php'        => 'PHP'
 }
 
+# x * 60 (s)
 EXPIRE = {
-  '0'  => 'After reading',
-  '-1' => 'No expire',
-  '1m' => '1 min',
-  '5m' => '5 min',
-  '1h' => '1 hour',
-  '1d' => '1 day'
+  '0'  => {
+    'text' => 'After reading',
+    'value' => 0
+  },
+  '-1' => {
+    'text' => 'No expire',
+    'value' => -1
+  },
+  '1m' => {
+    'text' => '1 min',
+    'value' => 1*60
+  },
+  '5m' => {
+    'text' => '5 min',
+    'value' => 5*60
+  },
+  '10m' => {
+    'text' => '10 min',
+    'value' => 10*60
+  },
+  '1h' => {
+    'text' => '1 hour',
+    'value' =>  1*60*60
+  },
+  '1d' => {
+    'text' => '1 day',
+    'value' => 24*60*60
+  }
 }

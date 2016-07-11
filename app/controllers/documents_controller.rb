@@ -26,7 +26,7 @@ class DocumentsController < ApplicationController
 
     respond_to do |format|
       if @document.save
-        @res[:random_key] = "#{@document.friendly_id}-#{@document.password}"
+        @res[:random_key] = TokenService.build(friendly_id: @document.friendly_id, password: @document.password)
         format.json { render :new, status: 201 }
       else
         format.json { render :new, status: 400 }
@@ -53,18 +53,6 @@ class DocumentsController < ApplicationController
     end
 
     def parse_token
-      begin
-        token = params[:token].split('-')
-        friendly_id = token[0]
-        password    = token[1]
-      rescue Exception => e
-        friendly_id = nil
-        password = nil
-      end
-
-      return {
-        friendly_id: friendly_id,
-        password: password
-      }
+      TokenService.extract(token: params[:token])
     end
 end

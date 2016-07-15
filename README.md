@@ -32,8 +32,8 @@ SECRET_KEY_BASE=$(bundle exec rake secret) bundle exec puma
 # Listening on tcp://127.0.0.1:8080
 ```
 
-What does pikabin has
----------------------
+This bin have?
+--------------
 
 * Security:
 
@@ -47,3 +47,8 @@ What does pikabin has
     - Front-end framework: Semantic-UI
     - Editor: ACE Editor
     - Syntax highlighting: SyntaxHighlighter
+
+Wanna contribute?
+-----------------
+
+Your contribution are welcome, desired features are in [TODO.md](https://github.com/tunglam14/pikabin/blob/master/TODO.md)

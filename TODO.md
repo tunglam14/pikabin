@@ -4,3 +4,4 @@
 * ~~Fix show notice in one-time-document~~
 * Delete now button
 * Count down to expiration
+* Advance editor: tabsize, softtab,...

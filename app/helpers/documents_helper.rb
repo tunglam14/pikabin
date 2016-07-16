@@ -15,6 +15,14 @@ module DocumentsHelper
     end
   end
 
+  def tabsize_dropdown
+    content_tag :div, class: "menu" do
+      [2, 4, 8].each do |size|
+        concat(content_tag :div, size, class: "item", :'data-value' =>  size)
+      end
+    end
+  end
+
   def print_document_title(document)
     if document.title.blank?
       return 'Unnamed document'

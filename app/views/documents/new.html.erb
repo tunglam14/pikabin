@@ -40,6 +40,19 @@
         </div>
       </div>
     </div>
+
+    <!-- syntax -->
+    <!-- <div class="four wide computer eight wide tablet sixteen wide mobile column">
+      <%= label_tag(:tab, "Tab size:") %>
+      <div class="ui">
+        <div class="ui fluid search normal selection dropdown dropdown-tabsize">
+          <i class="dropdown icon"></i>
+          <div class="default text">2</div>
+          <%= tabsize_dropdown %>
+        </div>
+      </div>
+    </div> -->
+
   </div> <!-- end of attribute section -->
 
   <%= content_tag :div, nil, class: ["divider", "divider30"] %>
@@ -70,8 +83,10 @@
 <script>
 // Init editor
 var editor = ace.edit("editor");
-editor.setTheme("ace/theme/github");
-editor.getSession().setMode("ace/mode/github");
+editor.setTheme("ace/theme/monokai");
+editor.getSession().setUseSoftTabs(true);
+editor.getSession().setTabSize(2);
+
 editor.focus();
 
 new Clipboard('.button-copy');

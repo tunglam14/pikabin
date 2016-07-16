@@ -80,12 +80,19 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.12/clipboard.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js" type="text/javascript" charset="utf-8"></script>
+
 <script>
 // Init editor
 var editor = ace.edit("editor");
 editor.setTheme("ace/theme/monokai");
+editor.session.setOption("useWorker", false);
 editor.getSession().setUseSoftTabs(true);
 editor.getSession().setTabSize(2);
+editor.setHighlightActiveLine(true);
+editor.setOptions({
+    maxLines: 40,
+    minLines: 20
+});
 
 editor.focus();
 

@@ -1,8 +1,8 @@
 module DocumentsHelper
   def syntax_dropdown
     content_tag :div, class: "menu" do
-      SYNTAX.each do |short, long|
-        concat(content_tag :div, long, class: "item", :'data-value' => short)
+      ACE_MODE.each do |syntax|
+        concat(content_tag :div, syntax, class: "item", :'data-value' => syntax)
       end
     end
   end
@@ -54,6 +54,6 @@ module DocumentsHelper
   end
 
   def load_syntax(document)
-    document.syntax.capitalize
+    document.syntax
   end
 end

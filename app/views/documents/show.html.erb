@@ -1,8 +1,4 @@
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrush<%= load_syntax(@document) %>.min.js"></script>
-
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet" type="text/css" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet" type="text/css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js" type="text/javascript" charset="utf-8"></script>
 
 <style>
 h1 {
@@ -22,13 +18,19 @@ h1 {
 <p><%= print_expired_at(@document) %></p>
 <br>
 
-<pre class="brush: <%= @document.syntax.downcase %>">
-<%= @document.content_decrypted %>
-</pre>
+<div name="" id="readonly_editor"><%= @document.content_decrypted %></div>
 
 <div class="divider divider60"></div>
 
 <script type="text/javascript">
-SyntaxHighlighter.all()
-SyntaxHighlighter.defaults['toolbar'] = false;
+// Init editor
+var editor = ace.edit("readonly_editor");
+editor.session.setOption("useWorker", false);
+editor.setTheme("ace/theme/monokai");
+editor.getSession().setMode("ace/mode/<%= load_syntax(@document) %>");
+editor.setOptions({
+    maxLines: 1500,
+    minLines: 20
+});
+editor.setReadOnly(true);
 </script>

@@ -7,8 +7,6 @@ class DocumentsController < ApplicationController
     redirect_to not_found_url
   end
 
-  # GET /documents/1
-  # GET /documents/1.json
   def show
   end
 
@@ -36,7 +34,7 @@ class DocumentsController < ApplicationController
 
   private
     def set_document
-      token = parse_token
+      token = TokenService.extract(token: params[:token])
       @document = Document.find_and_validate_by_friendly_id(token[:friendly_id])
 
       if @document.nil?
@@ -50,9 +48,5 @@ class DocumentsController < ApplicationController
 
     def document_params
       params.require(:document).permit(:content, :title, :syntax, :expired_at)
-    end
-
-    def parse_token
-      TokenService.extract(token: params[:token])
     end
 end

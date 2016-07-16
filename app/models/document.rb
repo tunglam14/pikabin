@@ -89,7 +89,7 @@ class Document < ActiveRecord::Base
     case self.expired_at
     when 0, '0'
       return 0
-    when '-1'
+    when '-1', -1
       return -1
     else
       return Time.now + self.expired_at.to_i.seconds

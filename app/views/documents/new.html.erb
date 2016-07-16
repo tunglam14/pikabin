@@ -20,9 +20,9 @@
       <%= f.label :expired_at %>
       <div class="ui">
         <div class="ui fluid normal selection dropdown dropdown-expired_at">
-          <%= f.hidden_field(:expired_at, value: '0') %>
+          <%= f.hidden_field(:expired_at, value: '60') %>
           <i class="dropdown icon"></i>
-          <div class="default text">After reading</div>
+          <div class="default text">1 min</div>
           <%= expired_at_dropdown %>
         </div>
       </div>

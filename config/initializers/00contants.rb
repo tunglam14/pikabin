@@ -141,11 +141,11 @@ EXPIRE = {
     'value' => 1*60
   },
   '5m' => {
-    'text' => '5 min',
+    'text' => '5 mins',
     'value' => 5*60
   },
   '10m' => {
-    'text' => '10 min',
+    'text' => '10 mins',
     'value' => 10*60
   },
   '1h' => {

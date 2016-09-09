@@ -42,7 +42,7 @@ curl -X POST -H "content-type: application/json" -d '{ "document": { "content": 
 {"message":"","uri":"http://localhost:3000/31037f223195e451e0ebe56e8e041d0c756bc"}
 ```
 
-Request body payload:
+Request body:
 
 ```json
 {

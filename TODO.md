@@ -5,3 +5,4 @@
 * Delete now button
 * Count down to expiration
 * Advance editor: tabsize, softtab,...
+* Validate expired_at, syntax field

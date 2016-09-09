@@ -1,19 +1,16 @@
 source 'https://rubygems.org'
 gem 'rails', '4.2.6'
-gem 'sqlite3'
-# gem 'sass-rails', '~> 5.0'
-# gem 'uglifier', '>= 1.3.0'
-# gem 'coffee-rails', '~> 4.1.0'
-# gem 'jquery-rails'
-gem 'jbuilder', '~> 2.0'
+gem 'sqlite3', '1.3.11'
+gem 'jbuilder', '2.4.1'
+
 group :development, :test do
-  gem 'pry'
+  gem 'pry', '0.10.3'
 end
 
 group :development do
   gem 'web-console', '~> 2.0'
-  gem 'spring'
+  gem 'spring', '1.7.1'
 end
-# gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
-gem 'puma'
+
+gem 'puma', '3.4.0'
 gem 'encrypted_strings', '0.3.3'

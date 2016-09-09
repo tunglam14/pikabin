@@ -27,12 +27,14 @@ class DocumentsController < ApplicationController
       if @document.save
         token = TokenService.build(friendly_id: @document.friendly_id, password: @document.password)
         @res[:uri] = request.base_url + request.original_fullpath + token
-
-        format.json { render :new, status: 201 }
+        res_status = 201
       else
         @res[:message] = @document.errors.full_messages
-        format.json { render :new, status: 400 }
+        res_status = 400
       end
+
+      format.json { render :new, status: res_status }
+      format.html {render json: @res, status: res_status}
     end
   end
 

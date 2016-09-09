@@ -19,15 +19,14 @@ class DocumentsController < ApplicationController
     @document = Document.new(document_params)
 
     @res = {
-      token: '',
       message: '',
       uri: ''
     }
 
     respond_to do |format|
       if @document.save
-        @res[:token] = TokenService.build(friendly_id: @document.friendly_id, password: @document.password)
-        @res[:uri] = request.base_url + request.original_fullpath + @res[:token]
+        token = TokenService.build(friendly_id: @document.friendly_id, password: @document.password)
+        @res[:uri] = request.base_url + request.original_fullpath + token
 
         format.json { render :new, status: 201 }
       else

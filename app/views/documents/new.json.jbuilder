@@ -1,1 +1,1 @@
-json.extract! @res, :token, :message, :uri
+json.extract! @res, :message, :uri

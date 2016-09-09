@@ -5,6 +5,8 @@ class Document < ActiveRecord::Base
 
   attr_accessor :password
 
+  validates :content, presence: true
+
   def self.find_and_validate_by_friendly_id(friendly_id)
     document = self.find_by(friendly_id: friendly_id)
 
@@ -87,7 +89,7 @@ class Document < ActiveRecord::Base
 
   def _get_datetime_from_duration_string
     case self.expired_at
-    when 0, '0'
+    when 0, '0', nil
       return 0
     when '-1', -1
       return -1

@@ -1,5 +1,6 @@
 class DocumentsController < ApplicationController
   before_action :set_document, only: [:show, :destroy]
+  skip_before_filter :verify_authenticity_token, :only => [:create]
 
   rescue_from OpenSSL::Cipher::CipherError do |exception|
     message = "Decrypt fail #{params}"
@@ -19,14 +20,18 @@ class DocumentsController < ApplicationController
 
     @res = {
       token: '',
-      message: ''
+      message: '',
+      uri: ''
     }
 
     respond_to do |format|
       if @document.save
         @res[:token] = TokenService.build(friendly_id: @document.friendly_id, password: @document.password)
+        @res[:uri] = request.base_url + request.original_fullpath + @res[:token]
+
         format.json { render :new, status: 201 }
       else
+        @res[:message] = @document.errors.full_messages
         format.json { render :new, status: 400 }
       end
     end

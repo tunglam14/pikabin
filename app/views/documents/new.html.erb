@@ -154,7 +154,7 @@ $('.ui.form').form({
         201: function (data) {
           console.log(data)
           myForm.hide();
-          $('.link_placeholder input').val(window.location.href + data.token);
+          $('.link_placeholder input').val(data.uri);
           $('.link_placeholder').show();
           $('.link_placeholder input').select();
         },

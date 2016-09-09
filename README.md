@@ -32,6 +32,29 @@ SECRET_KEY_BASE=$(bundle exec rake secret) bundle exec puma
 # Listening on tcp://127.0.0.1:8080
 ```
 
+API
+---
+
+```bash
+curl -X POST -H "content-type: application/json" -d '{ "document": { "content": "asdasdsd" } }' "http://localhost:3000"
+
+# Response
+{"message":"","uri":"http://localhost:3000/31037f223195e451e0ebe56e8e041d0c756bc"}
+```
+
+Request body payload:
+
+```json
+{
+  "document": {
+    "content": "Paste content",
+    "title": "Paste title | can be empty | Default: empty",
+    "expired_at": "Expiration time in minute | 0: delete after reading | -1: No expire | Default: 0",
+    "syntax": "Paste color syntax | See more: https://github.com/tunglam14/pikabin/blob/master/config/initializers/00contants.rb#L1 | Default: plain"
+  }
+}
+```
+
 This bin have?
 --------------
 

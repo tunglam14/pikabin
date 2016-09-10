@@ -42,7 +42,13 @@ curl -X POST -H "content-type: application/json" -d '{ "document": { "content": 
 {"message":"","uri":"http://localhost:3000/31037f223195e451e0ebe56e8e041d0c756bc"}
 ```
 
-Request body:
+### Request
+
+Header:
+
+    * Conten-type: application/json
+
+Body:
 
 ```json
 {
@@ -52,6 +58,36 @@ Request body:
     "expired_at": "Expiration time in minute | 0: delete after reading | -1: No expire | Default: 0",
     "syntax": "Paste color syntax | See more: https://github.com/tunglam14/pikabin/blob/master/config/initializers/00contants.rb#L1 | Default: plain"
   }
+}
+```
+
+### Response
+
+#### Success
+
+Code: `201`
+
+Body:
+
+```json
+{
+  "message": "",
+  "uri": "https://pikab.in/e90e9f9ff807091bb589b0e4db203bc3e92c4"
+}
+```
+
+#### Error
+
+Code: `400`
+
+Body:
+
+```json
+{
+  "message": [
+    "Content can't be blank"
+  ],
+  "uri": ""
 }
 ```
 

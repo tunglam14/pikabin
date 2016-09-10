@@ -97,8 +97,8 @@ Client
 * Python: [pikapy](https://github.com/tunglam14/pikapy)
 
 
-This bin have?
---------------
+Star point
+----------
 
 * Security:
 
@@ -107,7 +107,7 @@ This bin have?
     - Remove expired document immediately [[...]](https://github.com/tunglam14/pikabin/blob/master/app/models/document.rb#L114)
     - Remove document after reading
 
-* Friendliness:
+* UI:
 
     - Front-end framework: Semantic-UI
     - Editor: ACE Editor

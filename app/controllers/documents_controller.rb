@@ -19,7 +19,7 @@ class DocumentsController < ApplicationController
     @document = Document.new(document_params)
 
     @res = {
-      message: '',
+      message: [],
       uri: ''
     }
 

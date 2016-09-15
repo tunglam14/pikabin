@@ -8,3 +8,4 @@
 * Validate expired_at, syntax field
 * Support raw content
 * Rename `message` to `error` in response body
+* JSON, Bash, formatting support

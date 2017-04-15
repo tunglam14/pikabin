@@ -7,13 +7,14 @@
   <meta name="author" content="PikaBin">
   <meta name="description" content="PikaBin is a website where you can store text online for a set period of time">
 
-  <% if @document.title %>
   <meta property="og:title" content="<%= page_title(print_document_title(@document)) %>" />
+  <meta property="og:image" content="<%= asset_url('og_image.png') %>" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="<%= request.base_url + request.original_fullpath %>" />
   <meta property="og:image" content="<%= asset_url('og_image.png') %>" />
-  <meta property="og:article:expiration_time" content="<%= @document.expired_at %>" />
   <meta property="og:article:author" content="Mr. Nobody" />
+  <% if @document.title %>
+  <meta property="og:article:expiration_time" content="<%= @document.expired_at %>" />
   <% end %>
 
   <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js" %>

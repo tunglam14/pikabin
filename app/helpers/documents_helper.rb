@@ -4,6 +4,9 @@ module DocumentsHelper
       ACE_MODE.each do |syntax|
         concat(content_tag :div, syntax, class: "item", :'data-value' => syntax)
       end
+      ACE_MODE_ALIAS.each do |fake, real|
+        concat(content_tag :div, fake, class: "item", :'data-value' => real)
+      end
     end
   end
 
@@ -54,6 +57,10 @@ module DocumentsHelper
   end
 
   def load_syntax(document)
-    document.syntax
+    if ACE_MODE_ALIAS[document.syntax].nil?
+      document.syntax
+    else
+      ACE_MODE_ALIAS[document.syntax]
+    end
   end
 end

@@ -1,3 +1,5 @@
+# ace editor mode
+# visit: https://github.com/ajaxorg/ace/tree/master/lib/ace/mode
 ACE_MODE = [
   'abap',
   'abc',
@@ -54,6 +56,7 @@ ACE_MODE = [
   'java',
   'javascript',
   'julia',
+  'json',
   'latex',
   'less',
   'liquid',
@@ -125,6 +128,13 @@ ACE_MODE = [
   'xquery',
   'yaml',
 ]
+
+# alias for ace editor mode
+# key: aliased value
+# value: real value
+ACE_MODE_ALIAS = {
+  'bash' => 'sh'
+}
 
 # x * 60 (s)
 EXPIRE = {

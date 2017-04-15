@@ -22,6 +22,6 @@ class Cryptor
 
   private
   def gen_random_password
-    SecureRandom.hex
+    SecureRandom.hex[0..4]
   end
 end

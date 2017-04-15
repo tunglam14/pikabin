@@ -1,3 +1,8 @@
 #editor {
   height: 300px;
 }
+
+#btn-destroy:hover {
+  background-color: #db2828 !important;
+  color: #fff !important;
+}

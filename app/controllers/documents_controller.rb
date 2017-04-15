@@ -38,6 +38,23 @@ class DocumentsController < ApplicationController
     end
   end
 
+  def destroy
+    @res = {
+      error: '',
+      status: 204
+    }
+
+    if not @document.destroy
+      @res[:error] = 'Could not delete'
+      @res[:status] = 400
+    end
+
+    respond_to do |format|
+      format.json { render json: @res, status: @res[:status] }
+      format.js {}
+    end
+  end
+
   private
     def set_document
       token = TokenService.extract(token: params[:token])

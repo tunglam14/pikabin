@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'https://gems.vccloud.vn'
 gem 'rails', '4.2.6'
 gem 'sqlite3', '1.3.11'
 gem 'jbuilder', '2.4.1'

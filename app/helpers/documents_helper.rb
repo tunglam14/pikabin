@@ -27,11 +27,10 @@ module DocumentsHelper
   end
 
   def print_document_title(document)
-    if document.title.blank?
-      return 'Unnamed document'
+    if document
+      return 'Unnamed document' if document.title.blank?
+      return document.title
     end
-
-    return document.title
   end
 
   def print_expired_at(document)

@@ -162,8 +162,16 @@ EXPIRE = {
     'text' => '1 hour',
     'value' =>  1*60*60
   },
+  '6h' => {
+    'text' => '6 hours',
+    'value' =>  6*60*60
+  },
   '1d' => {
     'text' => '1 day',
     'value' => 24*60*60
+  },
+  '1w' => {
+    'text' => '1 week',
+    'value' => 24*60*60*7
   }
 }

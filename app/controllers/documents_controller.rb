@@ -9,6 +9,15 @@ class DocumentsController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html {}
+      format.json {
+
+      }
+      format.raw {
+        render plain: @document.content_decrypted, content_type: 'text/plain'
+      }
+    end
   end
 
   def new

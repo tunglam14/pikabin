@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   get '/' => 'documents#new'
   post '/' => 'documents#create', as: 'document'
-  get '/:token' => 'documents#show', :constraints => {:token => /.*/}
-  delete '/:token' => 'documents#destroy', :constraints => {:token => /.*/}, as: 'document_destroy'
+  get '/:token' => 'documents#show'
+  delete '/:token' => 'documents#destroy', as: 'document_destroy'
 
 end

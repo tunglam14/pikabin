@@ -1,6 +1,7 @@
 <% if @res[:error] == '' %>
 $('#btn-destroy').html('<i class="checkmark icon"></i> Deleted');
 $('#btn-destroy').attr('class', 'ui disabled green right floated button');
+$('#btn-show-raw').remove();
 <% else %>
 alert('<%= @res[:error] %>');
 <% end %>

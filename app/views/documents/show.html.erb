@@ -15,15 +15,21 @@ h1 {
 
   <div class="eight wide computer eight wide tablet sixteen wide mobile column">
     <%= if @document.expired_at.to_i != 0
-      link_to '<i class="trash outline icon"></i> Delete now'.html_safe,
+      link_to '<div class="visible content"><i class="trash outline icon"></i> Delete now</div><div class="hidden content"><i class="trash outline icon"></i> Delete now</div>'.html_safe,
         document_destroy_path,
-        class: "ui red basic right floated button",
+        class: "ui red basic right floated button vertical animated",
         id: 'btn-destroy',
         data: {
           remote: true, type: 'script', method: 'delete',
           confirm: 'Are you sure ?'
         }
       end %>
+    <a id="btn-show-raw" class="ui vertical animated button right floated teal" target="_blank" href="<%= document_show_path(params[:token]) %>.raw">
+      <div class="visible content">Raw</div>
+      <div class="hidden content">
+        Raw
+      </div>
+    </a>
   </div>
 </div>
 

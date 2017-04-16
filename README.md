@@ -91,6 +91,23 @@ Body:
 }
 ```
 
+
+### Show document
+
+raw:
+
+```bash
+curl https://pikab.in/936279c6f3.raw
+assasasss
+```
+
+json:
+
+```bash
+curl https://pikab.in/936279c6f3.json
+{"content_decrypted":"assasasss ","title":"","expired_at":"-1","syntax":"plain"}
+```
+
 Client
 ------
 

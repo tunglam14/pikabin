@@ -6,6 +6,6 @@
 * Count down to expiration
 * Advance editor: tabsize, softtab,...
 * Validate expired_at, syntax field
-* Support raw content
+* ~~Support raw content~~
 * Rename `message` to `error` in response body
 * ~~JSON, Bash, formatting support~~

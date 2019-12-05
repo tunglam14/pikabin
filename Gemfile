@@ -12,5 +12,5 @@ group :development do
   gem 'spring', '1.7.1'
 end
 
-gem 'puma', '3.4.0'
+gem 'puma', '3.12.2'
 gem 'encrypted_strings', '0.3.3'
